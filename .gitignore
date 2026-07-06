@@ -1,0 +1,17 @@
+# MacOS
+.DS_Store
+
+# Rider
+.idea/
+
+# Visual Studio
+.vs/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Environments
+*.env
