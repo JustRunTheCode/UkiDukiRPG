@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../Common/UkiDukiRPG.Transfer/UkiDukiRPG.Transfer.csproj" />
+  <Project Path="UkiDukiRPG.API/UkiDukiRPG.API.csproj" />
+</Solution>

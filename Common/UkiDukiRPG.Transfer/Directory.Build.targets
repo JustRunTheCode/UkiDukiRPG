@@ -1,0 +1,14 @@
+<Project>
+    <ItemGroup>
+        <None Remove="**\*.meta" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove=".artifacts\**\**.*" />
+        <None Remove="obj\**\*.*;bin\**\*.*" />
+        <Compile Remove=".artifacts\**\**.*" />
+        <Compile Remove="bin\**\*.*;obj\**\*.*" />
+        <EmbeddedResource Remove=".artifacts\**\**.*" />
+        <EmbeddedResource Remove="bin\**\*.*;obj\**\*.*" />
+    </ItemGroup>
+</Project>
