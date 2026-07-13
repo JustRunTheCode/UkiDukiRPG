@@ -20,4 +20,6 @@ public abstract class Character(AttributeSet baseAttributes, StatBlock baseStats
     public StatBlock    InBattleStats      { get; } = new();
     
     //TODO: Keep Track of Active Status Effects
+    
+    //TODO: Keep Track of Abilities
 }

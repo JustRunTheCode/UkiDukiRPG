@@ -1,0 +1,21 @@
+﻿using UkiDukiRPG.Core.Domain.Effects;
+using UkiDukiRPG.Core.Domain.Characters;
+using UkiDukiRPG.Core.Domain.Time;
+using UkiDukiRPG.Core.Domain.Utilities;
+
+namespace UkiDukiRPG.Core.Domain.Abilities;
+
+//NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Moderate)
+public class SlashAbility(IScheduler scheduler) : Ability(nameof(SlashAbility))
+{
+    private const float c_BaseDamage = 15.0f;
+
+    private readonly IScheduler m_Scheduler = scheduler;
+
+    public override void Use(Character caster, Character target)
+    {
+        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, m_Scheduler);
+
+        effect.Apply(caster, target);
+    }
+}
