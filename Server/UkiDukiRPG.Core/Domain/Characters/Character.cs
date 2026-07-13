@@ -18,4 +18,6 @@ public abstract class Character(AttributeSet baseAttributes, StatBlock baseStats
     // Battle Affected Properties
     public AttributeSet InBattleAttributes { get; } = new();
     public StatBlock    InBattleStats      { get; } = new();
+    
+    //TODO: Keep Track of Active Status Effects
 }

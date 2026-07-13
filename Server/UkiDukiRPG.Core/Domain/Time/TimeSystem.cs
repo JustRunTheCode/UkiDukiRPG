@@ -2,6 +2,8 @@
 
 public interface IScheduler
 {
+    int CurrentTick { get; }
+
     void Schedule(Action action, TimeInterval interval);
 
     void Schedule(Action action, int interval, TimeUnit delayUnit);
@@ -11,15 +13,15 @@ public class TimeSystem : IScheduler
 {
     private readonly PriorityQueue<Action, int> m_Queue = new();
 
-    private int m_CurrentTick = 0;
-    
+    public int CurrentTick { get; private set; } = 0;
+
     public void AdvanceTick()
     {
-        ++m_CurrentTick;
+        ++CurrentTick;
 
         while (m_Queue.TryPeek(out var action, out var executionTick))
         {
-            if (executionTick > m_CurrentTick)
+            if (executionTick > CurrentTick)
                 break;
 
             m_Queue.Dequeue();
@@ -28,10 +30,10 @@ public class TimeSystem : IScheduler
         }
     }
 
-    public void Schedule(Action action, TimeInterval interval) => m_Queue.Enqueue(action, m_CurrentTick + interval.Ticks);
+    public void Schedule(Action action, TimeInterval interval) => m_Queue.Enqueue(action, CurrentTick + interval.Ticks);
 
     // @formatter:off
     public void Schedule(Action action, int interval, TimeUnit delayUnit) => m_Queue.Enqueue(action, 
-                                                                                             m_CurrentTick + TimeInterval.From(interval, delayUnit).Ticks);
+                                                                                             CurrentTick + TimeInterval.From(interval, delayUnit).Ticks);
     // @formatter:on
 }
