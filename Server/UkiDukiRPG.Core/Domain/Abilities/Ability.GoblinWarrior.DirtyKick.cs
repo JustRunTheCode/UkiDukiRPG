@@ -7,7 +7,7 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Light)
 //      Effect 2: DefenseDecreaseEffect (Target: Defender, Duration: 2 Turns)
-public class WebThrowAbility(IScheduler scheduler) : Ability(nameof(WebThrowAbility))
+public class DirtyKickAbility(IScheduler scheduler) : Ability(nameof(DirtyKickAbility), AbilityType.DirtyKick)
 {
     private const float c_BaseDamage     = 10.0f;
     private const float c_BaseDecrease   = 0.0f;

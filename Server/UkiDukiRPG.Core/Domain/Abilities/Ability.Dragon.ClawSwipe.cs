@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Moderate)
-public class BiteAbility(IScheduler scheduler) : Ability(nameof(BiteAbility))
+public class ClawSwipeAbility(IScheduler scheduler) : Ability(nameof(ClawSwipeAbility), AbilityType.ClawSwipe)
 {
     private const float c_BaseDamage = 15.0f;
 

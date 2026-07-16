@@ -5,10 +5,10 @@ using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
-//NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Heavy)
-public class PounceAbility(IScheduler scheduler) : Ability(nameof(PounceAbility))
+//NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Moderate)
+public class BiteAbility(IScheduler scheduler) : Ability(nameof(BiteAbility), AbilityType.Bite)
 {
-    private const float c_BaseDamage = 20.0f;
+    private const float c_BaseDamage = 15.0f;
 
     private readonly IScheduler m_Scheduler = scheduler;
 

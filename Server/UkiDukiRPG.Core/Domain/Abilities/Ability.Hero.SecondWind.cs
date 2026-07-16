@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: RestoreHealthEffect (Target: Caster, Value: Moderate)
-public class SecondWindAbility(IScheduler scheduler) : Ability(nameof(SecondWindAbility))
+public class SecondWindAbility(IScheduler scheduler) : Ability(nameof(SecondWindAbility), AbilityType.SecondWind)
 {
     private const float c_BaseHeal = 15.0f;
 

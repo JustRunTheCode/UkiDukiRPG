@@ -5,8 +5,8 @@ using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
-//NOTE: Effect 1: AttackIncreaseEffect (Target: Caster, Duration: 2 Round)
-public class BattleCryAbility(IScheduler scheduler) : Ability(nameof(BattleCryAbility))
+//NOTE: Effect 1: DefenseIncreaseEffect (Target: Caster, Duration: 2 Turns)
+public class SkitterAbility(IScheduler scheduler) : Ability(nameof(SkitterAbility), AbilityType.Skitter)
 {
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;
@@ -15,7 +15,7 @@ public class BattleCryAbility(IScheduler scheduler) : Ability(nameof(BattleCryAb
 
     public override void Use(Character caster, Character target)
     {
-        var effect = new AttackIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
+        var effect = new DefenseIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
 
         effect.Apply(caster, caster);
     }

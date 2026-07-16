@@ -6,11 +6,11 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: AttackDecreaseEffect (Target: Defender, Duration: 2 Turns)
-public class IntimidateAbility(IScheduler scheduler) : Ability(nameof(IntimidateAbility))
+public class IntimidateAbility(IScheduler scheduler) : Ability(nameof(IntimidateAbility), AbilityType.Intimidate)
 {
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;
-
+    
     private readonly IScheduler m_Scheduler = scheduler;
 
     public override void Use(Character caster, Character target)

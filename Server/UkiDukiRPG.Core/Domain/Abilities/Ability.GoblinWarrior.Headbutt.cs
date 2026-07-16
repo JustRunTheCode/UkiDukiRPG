@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Heavy)
-public class HeadbuttAbility(IScheduler scheduler) : Ability(nameof(HeadbuttAbility))
+public class HeadbuttAbility(IScheduler scheduler) : Ability(nameof(HeadbuttAbility), AbilityType.Headbutt)
 {
     private const float c_BaseDamage = 20.0f;
 

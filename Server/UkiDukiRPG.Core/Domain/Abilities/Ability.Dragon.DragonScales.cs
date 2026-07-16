@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: DefenseIncreaseEffect (Target: Caster, Duration: 2 Turns)
-public class SkitterAbility(IScheduler scheduler) : Ability(nameof(SkitterAbility))
+public class DragonScalesAbility(IScheduler scheduler) : Ability(nameof(DragonScalesAbility), AbilityType.DragonScales)
 {
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;

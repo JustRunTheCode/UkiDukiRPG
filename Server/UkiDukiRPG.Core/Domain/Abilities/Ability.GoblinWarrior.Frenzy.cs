@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: AttackIncreaseEffect (Target: Caster, Duration: 2 Turns)
-public class FrenzyAbility(IScheduler scheduler) : Ability(nameof(FrenzyAbility))
+public class FrenzyAbility(IScheduler scheduler) : Ability(nameof(FrenzyAbility), AbilityType.Frenzy)
 {
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;

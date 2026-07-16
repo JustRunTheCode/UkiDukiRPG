@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: DefenseIncreaseEffect (Target: Caster, Duration: 2 Turns)
-public class ShieldUpAbility(IScheduler scheduler) : Ability(nameof(ShieldUpAbility))
+public class HexShieldAbility(IScheduler scheduler) : Ability(nameof(HexShieldAbility), AbilityType.HexShield)
 {
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;

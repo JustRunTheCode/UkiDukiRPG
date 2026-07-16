@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: AttackDecreaseEffect (Target: Defender, Duration: 2 Turns)
-public class CurseAbility(IScheduler scheduler) : Ability(nameof(CurseAbility))
+public class CurseAbility(IScheduler scheduler) : Ability(nameof(CurseAbility), AbilityType.Curse)
 {
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;

@@ -2,9 +2,48 @@
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
-public abstract class Ability(string name)
+public enum AbilityType
 {
-    public string Name { get; } = name;
+    None = 0,
+    
+    ClawSwipe,
+    DragonScales,
+    FlameBreath,
+    Intimidate,
+    
+    Bite,
+    Pounce,
+    Skitter,
+    WebThrow,
+    
+    ArcaneSurge,
+    Firebolt,
+    HexShield,
+    ManaDrain,
+    
+    DirtyKick,
+    Frenzy,
+    Headbutt,
+    RustyBlade,
+    
+    BattleCry,
+    SecondWind,
+    ShieldUp,
+    Slash,
+    
+    Curse,
+    DarkPack,
+    DrainLife,
+    ShadowBolt,
+    
+    Count, //NOTE: hack to get array size value required to hold the types, always keep as last element
+}
+
+public abstract class Ability(string name, AbilityType type)
+{
+    public string Name => name;
+
+    public AbilityType Type => type;
 
     public abstract void Use(Character caster, Character target);
 }

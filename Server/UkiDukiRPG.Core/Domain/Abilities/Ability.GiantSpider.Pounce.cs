@@ -5,8 +5,8 @@ using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
-//NOTE: Effect 1: MagicDamageEffect (Target: Defender, Value: Heavy)
-public class FlameBreathAbility(IScheduler scheduler) : Ability(nameof(FlameBreathAbility))
+//NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Heavy)
+public class PounceAbility(IScheduler scheduler) : Ability(nameof(PounceAbility), AbilityType.Pounce)
 {
     private const float c_BaseDamage = 20.0f;
 
@@ -14,7 +14,7 @@ public class FlameBreathAbility(IScheduler scheduler) : Ability(nameof(FlameBrea
 
     public override void Use(Character caster, Character target)
     {
-        var effect = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);
+        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, m_Scheduler);
 
         effect.Apply(caster, target);
     }

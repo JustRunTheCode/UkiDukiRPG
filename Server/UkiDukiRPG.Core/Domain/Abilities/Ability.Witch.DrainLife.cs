@@ -7,7 +7,7 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: MagicDamageEffect (Target: Defender, Value: Light)
 //      Effect 2: RestoreHealthEffect (Target: Caster, Value: Light)
-public class DrainLifeAbility(IScheduler scheduler) : Ability(nameof(DrainLifeAbility))
+public class DrainLifeAbility(IScheduler scheduler) : Ability(nameof(DrainLifeAbility), AbilityType.DrainLife)
 {
     private const float c_BaseDamage = 7.5f;
 

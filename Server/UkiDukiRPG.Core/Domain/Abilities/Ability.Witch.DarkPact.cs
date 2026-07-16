@@ -7,7 +7,7 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: DrainHealthEffect (Target: Caster, Value: Light)
 //      Effect 2: MagicIncreaseEffect (Target: Caster, Duration: 2 Turns)
-public class DarkPactAbility(IScheduler scheduler) : Ability(nameof(DarkPactAbility))
+public class DarkPactAbility(IScheduler scheduler) : Ability(nameof(DarkPactAbility), AbilityType.DarkPack)
 {
     private const float c_BaseDamage     = 5.0f;
     private const float c_BaseIncrease   = 0.0f;

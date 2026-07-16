@@ -7,7 +7,7 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: MagicDamageEffect (Target: Defender, Value: Light)
 //      Effect 2: MagicDecreaseEffect (Target: Defender, Duration: 2 Turns)
-public class ManaDrainAbility(IScheduler scheduler) : Ability(nameof(ManaDrainAbility))
+public class ManaDrainAbility(IScheduler scheduler) : Ability(nameof(ManaDrainAbility), AbilityType.ManaDrain)
 {
     private const float c_BaseDamage     = 10.0f;
     private const float c_BaseDecrease   = 0.0f;

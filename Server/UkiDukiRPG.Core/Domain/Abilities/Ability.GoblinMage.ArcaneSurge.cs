@@ -5,8 +5,8 @@ using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
-//NOTE: Effect 1: DefenseIncreaseEffect (Target: Caster, Duration: 2 Turns)
-public class HexShieldAbility(IScheduler scheduler) : Ability(nameof(HexShieldAbility))
+//NOTE: Effect 1: MagicIncreaseEffect (Target: Caster, Duration: 2 Rounds)
+public class ArcaneSurgeAbility(IScheduler scheduler) : Ability(nameof(ArcaneSurgeAbility), AbilityType.ArcaneSurge)
 {
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;
@@ -15,7 +15,7 @@ public class HexShieldAbility(IScheduler scheduler) : Ability(nameof(HexShieldAb
 
     public override void Use(Character caster, Character target)
     {
-        var effect = new DefenseIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
+        var effect = new MagicIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
 
         effect.Apply(caster, caster);
     }

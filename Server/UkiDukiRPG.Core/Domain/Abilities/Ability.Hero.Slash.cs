@@ -6,7 +6,7 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Moderate)
-public class RustyBladeAbility(IScheduler scheduler) : Ability(nameof(RustyBladeAbility))
+public class SlashAbility(IScheduler scheduler) : Ability(nameof(SlashAbility), AbilityType.Slash)
 {
     private const float c_BaseDamage = 15.0f;
 

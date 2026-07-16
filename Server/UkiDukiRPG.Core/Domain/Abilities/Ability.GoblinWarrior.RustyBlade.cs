@@ -5,8 +5,8 @@ using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
-//NOTE: Effect 1: MagicDamageEffect (Target: Defender, Value: Moderate)
-public class FireboltAbility(IScheduler scheduler) : Ability(nameof(FireboltAbility))
+//NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Moderate)
+public class RustyBladeAbility(IScheduler scheduler) : Ability(nameof(RustyBladeAbility), AbilityType.RustyBlade)
 {
     private const float c_BaseDamage = 15.0f;
 
@@ -14,7 +14,7 @@ public class FireboltAbility(IScheduler scheduler) : Ability(nameof(FireboltAbil
 
     public override void Use(Character caster, Character target)
     {
-        var effect = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);
+        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, m_Scheduler);
 
         effect.Apply(caster, target);
     }
