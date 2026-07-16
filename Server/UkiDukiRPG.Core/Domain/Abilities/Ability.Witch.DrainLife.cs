@@ -2,6 +2,7 @@
 using UkiDukiRPG.Core.Domain.Characters;
 using UkiDukiRPG.Core.Domain.Time;
 using UkiDukiRPG.Core.Domain.Utilities;
+using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
@@ -13,15 +14,15 @@ public class DrainLifeAbility(IScheduler scheduler) : Ability(nameof(DrainLifeAb
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect1 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);
 
-        var oldHealth = target.EffectiveStats.Health.Value;
+        var oldHealth = target.CurrentHealth;
 
         effect1.Apply(caster, target);
 
-        var healthTaken = oldHealth - target.EffectiveStats.Health.Value;
+        var healthTaken = oldHealth - target.CurrentHealth;
 
         var effect2 = new RestoreHealthEffect(healthTaken, ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
 

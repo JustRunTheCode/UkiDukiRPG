@@ -11,7 +11,7 @@ public abstract class Effect(string name, IScheduler scheduler)
 
     protected readonly IScheduler m_Scheduler = scheduler;
 
-    public abstract void Apply(Character caster, Character target);
+    public abstract void Apply(Combatant caster, Combatant target);
 }
 
 public abstract class InstantEffect(string name, IScheduler scheduler) : Effect(name, scheduler) { }
@@ -26,9 +26,9 @@ public abstract class StatusEffect(string name, TimeInterval duration, ISchedule
 {
     public TimeInterval Duration { get; } = duration;
 
-    protected void ScheduleClear(Character hero) => m_Scheduler.Schedule(() => Clear(hero), Duration);
+    protected void ScheduleClear(Combatant combatant) => m_Scheduler.Schedule(() => Clear(combatant), Duration);
 
-    public abstract void Clear(Character hero);
+    public abstract void Clear(Combatant combatant);
 
     public abstract StatusEffectCategory Category();
 }

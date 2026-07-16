@@ -13,7 +13,7 @@ public class CurseAbility(IScheduler scheduler) : Ability(nameof(CurseAbility), 
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect = new AttackDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
 

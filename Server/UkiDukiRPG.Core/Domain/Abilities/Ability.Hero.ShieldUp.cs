@@ -13,7 +13,7 @@ public class ShieldUpAbility(IScheduler scheduler) : Ability(nameof(ShieldUpAbil
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect = new DefenseIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
 

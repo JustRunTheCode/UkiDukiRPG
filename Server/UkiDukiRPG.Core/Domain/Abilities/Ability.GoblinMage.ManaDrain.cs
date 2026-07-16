@@ -15,7 +15,7 @@ public class ManaDrainAbility(IScheduler scheduler) : Ability(nameof(ManaDrainAb
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect1 = new MagicDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
         var effect2 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);

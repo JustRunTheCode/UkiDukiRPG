@@ -15,7 +15,7 @@ public class WebThrowAbility(IScheduler scheduler) : Ability(nameof(WebThrowAbil
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
         var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, m_Scheduler);

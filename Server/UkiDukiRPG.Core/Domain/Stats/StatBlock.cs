@@ -22,3 +22,15 @@ public class StatBlock(HealthStat health, DamageStat damage, DefenseStat defense
                                                                                   left.Mana.Value    + right.Magic.EffectMultiplier());
     // @formatter:on
 }
+
+public class CombatStats(HealthStat health, DamageStat damage, DefenseStat defense, ManaStat mana)
+{
+    public HealthStat  MaxHealth { get; } = health;
+    public ManaStat    MaxMana   { get; } = mana;
+    public HealthStat  Health    { get; } = health;
+    public DamageStat  Damage    { get; } = damage;
+    public DefenseStat Defense   { get; } = defense;
+    public ManaStat    Mana      { get; } = mana;
+
+    public static implicit operator CombatStats(StatBlock stats) => new(stats.Health, stats.Damage, stats.Defense, stats.Mana);
+}

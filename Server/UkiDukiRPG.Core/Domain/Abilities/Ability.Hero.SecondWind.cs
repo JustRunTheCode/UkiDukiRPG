@@ -12,7 +12,7 @@ public class SecondWindAbility(IScheduler scheduler) : Ability(nameof(SecondWind
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect = new RestoreHealthEffect(c_BaseHeal, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);
 

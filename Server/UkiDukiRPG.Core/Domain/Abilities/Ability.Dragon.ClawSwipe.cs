@@ -12,7 +12,7 @@ public class ClawSwipeAbility(IScheduler scheduler) : Ability(nameof(ClawSwipeAb
 
     private readonly IScheduler m_Scheduler = scheduler;
 
-    public override void Use(Character caster, Character target)
+    public override void Use(Combatant caster, Combatant target)
     {
         var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, m_Scheduler);
 

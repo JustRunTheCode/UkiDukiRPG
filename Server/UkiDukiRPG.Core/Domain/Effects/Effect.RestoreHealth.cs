@@ -1,24 +1,25 @@
 ﻿using UkiDukiRPG.Core.Domain.Characters;
+using UkiDukiRPG.Core.Domain.Stats;
 using UkiDukiRPG.Core.Domain.Time;
+using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 
 namespace UkiDukiRPG.Core.Domain.Effects;
 
 //NOTE: Used by the Knight's Second Wind.
-public class RestoreHealthEffect(float baseHeal, Func<Character, float> attackerModifierFunction, Func<Character, float> defenderModifierFunction, IScheduler scheduler)
+public class RestoreHealthEffect(float baseHeal, Func<Combatant, float> attackerModifierFunction, Func<Combatant, float> defenderModifierFunction, IScheduler scheduler)
 : InstantEffect(nameof(RestoreHealthEffect), scheduler)
 {
     private readonly float                  m_BaseHeal                 = baseHeal;
-    private readonly Func<Character, float> m_AttackerModifierFunction = attackerModifierFunction;
-    private readonly Func<Character, float> m_DefenderModifierFunction = defenderModifierFunction;
+    private readonly Func<Combatant, float> m_AttackerModifierFunction = attackerModifierFunction;
+    private readonly Func<Combatant, float> m_DefenderModifierFunction = defenderModifierFunction;
 
-    public override void Apply(Character caster, Character target)
+    public override void Apply(Combatant caster, Combatant target)
     {
         var attackerModifier = m_AttackerModifierFunction(caster);
         var defenderModifier = m_DefenderModifierFunction(target);
 
-        var maxHealth = caster.EffectiveStats.Health.Value;
-        var newHealth = caster.EffectiveStats.Health.Value + m_BaseHeal * attackerModifier * defenderModifier;
+        var restoreHealth = float.Min(target.MaxHealth - target.CurrentHealth, m_BaseHeal * attackerModifier * defenderModifier);
 
-        caster.EffectiveStats.Health.Value = float.Min(maxHealth, newHealth);
+        target.IncreaseStat(CombatStatType.Health, restoreHealth);
     }
 }

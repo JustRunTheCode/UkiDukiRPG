@@ -1,4 +1,5 @@
-﻿using UkiDukiRPG.Core.Domain.Attributes;
+﻿using UkiDukiRPG.Core.Domain.Abilities;
+using UkiDukiRPG.Core.Domain.Attributes;
 using UkiDukiRPG.Core.Domain.Leveling;
 using UkiDukiRPG.Core.Domain.Stats;
 
@@ -14,12 +15,7 @@ public abstract class Character(AttributeSet baseAttributes, StatBlock baseStats
     public readonly StatBlock EffectiveStats = baseStats + baseAttributes;
 
     public readonly Experience Experience = new(268, new LevelRequirements());
-
-    // Battle Affected Properties
-    public AttributeSet InBattleAttributes { get; } = new();
-    public StatBlock    InBattleStats      { get; } = new();
-    
-    //TODO: Keep Track of Active Status Effects
     
     //TODO: Keep Track of Abilities
+    public readonly Ability[] Abilities = new Ability[4];
 }
