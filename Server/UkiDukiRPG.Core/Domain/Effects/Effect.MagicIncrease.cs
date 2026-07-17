@@ -10,13 +10,13 @@ public class MagicIncreaseEffect(
     float                  baseIncrease,
     float                  increaseFactor,
     TimeInterval           duration,
-    Func<Combatant, float> attackerModifierFunction,
-    Func<Combatant, float> defenderModifierFunction,
+    Func<Combatant, float> casterModifierFunction,
+    Func<Combatant, float> targetModifierFunction,
     IScheduler             scheduler
 ) : BuffEffect(nameof(MagicIncreaseEffect), duration, scheduler)
 {
-    private readonly Func<Combatant, float> m_AttackerModifierFunction = attackerModifierFunction;
-    private readonly Func<Combatant, float> m_DefenderModifierFunction = defenderModifierFunction;
+    private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
+    private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;
 
     private readonly float m_BaseIncrease   = baseIncrease;
     private readonly float m_IncreaseFactor = increaseFactor;
@@ -24,10 +24,10 @@ public class MagicIncreaseEffect(
 
     public override void Apply(Combatant caster, Combatant target)
     {
-        var attackerModifier = m_AttackerModifierFunction(caster);
-        var defenderModifier = m_DefenderModifierFunction(target);
+        var casterModifier = m_CasterModifierFunction(caster);
+        var targetModifier = m_TargetModifierFunction(target);
 
-        m_Amount = (int)Math.Round((target.MagicLevel + m_BaseIncrease) * m_IncreaseFactor * attackerModifier * defenderModifier);
+        m_Amount = (int)float.Round((m_BaseIncrease + target.MagicLevel * m_IncreaseFactor) * casterModifier * targetModifier);
 
         target.AscendAttribute(AttributeType.Magic, m_Amount);
 

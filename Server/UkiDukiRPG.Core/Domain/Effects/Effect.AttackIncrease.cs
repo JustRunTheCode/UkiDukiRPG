@@ -5,19 +5,18 @@ using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 
 namespace UkiDukiRPG.Core.Domain.Effects;
 
-//IN PROGRESS: Check Amount Calculation for all Increase Attributes, might be incorrect 
 //NOTE: Used by Knight's Battle Cry and Goblin Warrior's Frenzy.
 public class AttackIncreaseEffect(
     float                  baseIncrease,
     float                  increaseFactor,
     TimeInterval           duration,
-    Func<Combatant, float> attackerModifierFunction,
-    Func<Combatant, float> defenderModifierFunction,
+    Func<Combatant, float> casterModifierFunction,
+    Func<Combatant, float> targetModifierFunction,
     IScheduler             scheduler
 ) : BuffEffect(nameof(AttackIncreaseEffect), duration, scheduler)
 {
-    private readonly Func<Combatant, float> m_AttackerModifierFunction = attackerModifierFunction;
-    private readonly Func<Combatant, float> m_DefenderModifierFunction = defenderModifierFunction;
+    private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
+    private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;
 
     private readonly float m_BaseIncrease   = baseIncrease;
     private readonly float m_IncreaseFactor = increaseFactor;
@@ -25,10 +24,10 @@ public class AttackIncreaseEffect(
 
     public override void Apply(Combatant caster, Combatant target)
     {
-        var attackerModifier = m_AttackerModifierFunction(caster);
-        var defenderModifier = m_DefenderModifierFunction(target);
+        var casterModifier = m_CasterModifierFunction(caster);
+        var targetModifier = m_TargetModifierFunction(target);
 
-        m_Amount = (int)Math.Round((target.AttackLevel + m_BaseIncrease) * m_IncreaseFactor * attackerModifier * defenderModifier);
+        m_Amount = (int)float.Round((m_BaseIncrease + target.AttackLevel * m_IncreaseFactor) * casterModifier * targetModifier);
 
         target.AscendAttribute(AttributeType.Attack, m_Amount);
 

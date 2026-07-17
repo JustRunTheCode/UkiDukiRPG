@@ -10,13 +10,13 @@ public class MagicDecreaseEffect(
     float                  baseDecrease,
     float                  decreaseFactor,
     TimeInterval           duration,
-    Func<Combatant, float> attackerModifierFunction,
-    Func<Combatant, float> defenderModifierFunction,
+    Func<Combatant, float> casterModifierFunction,
+    Func<Combatant, float> targetModifierFunction,
     IScheduler             scheduler
 ) : DebuffEffect(nameof(MagicDecreaseEffect), duration, scheduler)
 {
-    private readonly Func<Combatant, float> m_AttackerModifierFunction = attackerModifierFunction;
-    private readonly Func<Combatant, float> m_DefenderModifierFunction = defenderModifierFunction;
+    private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
+    private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;
 
     private readonly float m_BaseDecrease   = baseDecrease;
     private readonly float m_DecreaseFactor = decreaseFactor;
@@ -24,10 +24,10 @@ public class MagicDecreaseEffect(
 
     public override void Apply(Combatant caster, Combatant target)
     {
-        var attackerModifier = m_AttackerModifierFunction(caster);
-        var defenderModifier = m_DefenderModifierFunction(target);
+        var casterModifier = m_CasterModifierFunction(caster);
+        var targetModifier = m_TargetModifierFunction(target);
 
-        m_Amount = (int)Math.Round(((target.MagicLevel - m_BaseDecrease) * (1 - m_DecreaseFactor) * attackerModifier * defenderModifier));
+        m_Amount = int.Min(target.MagicLevel, (int)float.Round((m_BaseDecrease + target.MagicLevel * m_DecreaseFactor) * casterModifier * targetModifier));
 
         target.DescendAttribute(AttributeType.Magic, m_Amount);
 
