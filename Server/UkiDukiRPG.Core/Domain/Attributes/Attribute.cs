@@ -3,7 +3,7 @@
 public enum AttributeType
 {
     None = 0,
-    
+
     Health,
     Attack,
     Defense,
@@ -26,19 +26,19 @@ public abstract class Attribute(AttributeType type, int level = 0)
     public event Action<AttributeModifiedArgs> OnModified = delegate { };
 
     public void Ascend() => Ascend(1);
-    
+
     public void Ascend(int amount)
     {
         Level += amount;
-        
+
         OnModified(new AttributeModifiedArgs { PreviousLevel = Level - amount, CurrentLevel = Level });
     }
-    
+
     public void Descend(int amount)
     {
         //NOTE: for now this value is trusted to be correct (Level will not go below zero)
         Level -= amount;
-        
+
         OnModified(new AttributeModifiedArgs { PreviousLevel = Level + amount, CurrentLevel = Level });
     }
 }

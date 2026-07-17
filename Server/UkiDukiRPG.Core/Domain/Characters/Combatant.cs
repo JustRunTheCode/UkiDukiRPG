@@ -12,7 +12,7 @@ public class Combatant(Character character)
 
     //TODO: Keep Track of Active Status Effects
     //TODO: Add Abilities
-    
+
     public void AscendAttribute(AttributeType attributeType, int value)
     {
         unsafe

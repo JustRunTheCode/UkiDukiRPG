@@ -22,7 +22,7 @@ public enum CombatStatType
     Damage,
     Defense,
     Mana,
-    
+
     Count, //NOTE: hack to get array size value required to hold the types, always keep as last element
 }
 
