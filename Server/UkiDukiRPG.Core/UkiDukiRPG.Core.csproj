@@ -7,4 +7,8 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="JustRunTheCode.Optimization" Version="0.0.2-alpha" />
+    </ItemGroup>
+
 </Project>

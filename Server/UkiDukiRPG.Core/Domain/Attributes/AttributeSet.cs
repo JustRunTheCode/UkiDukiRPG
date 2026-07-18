@@ -1,54 +1,69 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
+
+using JustRunTheCode.Optimization.Attributes;
 
 namespace UkiDukiRPG.Core.Domain.Attributes;
 
-public class AttributeSet
+public partial class AttributeSet(HealthAttribute health, AttackAttribute attack, DefenseAttribute defense, MagicAttribute magic)
 {
-    public HealthAttribute  Health  { get; }
-    public AttackAttribute  Attack  { get; }
-    public DefenseAttribute Defense { get; }
-    public MagicAttribute   Magic   { get; }
-
-    private readonly Action[]      m_AttributeLevelUpActions;
-    private readonly Action<int>[] m_AttributeAscendActions;
-    private readonly Action<int>[] m_AttributeDescendActions;
+    public HealthAttribute  Health  { get; } = health;
+    public AttackAttribute  Attack  { get; } = attack;
+    public DefenseAttribute Defense { get; } = defense;
+    public MagicAttribute   Magic   { get; } = magic;
 
     public AttributeSet(int health = 0, int attack = 0, int defense = 0, int magic = 0) : this(new HealthAttribute(health), new AttackAttribute(attack), new DefenseAttribute(defense),
                                                                                                new MagicAttribute(magic)) { }
 
-    public AttributeSet(HealthAttribute health, AttackAttribute attack, DefenseAttribute defense, MagicAttribute magic)
+    public void Ascend(AttributeType attribute)
     {
-        Health  = health;
-        Attack  = attack;
-        Defense = defense;
-        Magic   = magic;
-
-        m_AttributeLevelUpActions = new Action[(int)AttributeType.Count];
-        m_AttributeAscendActions  = new Action<int>[(int)AttributeType.Count];
-        m_AttributeDescendActions = new Action<int>[(int)AttributeType.Count];
-
-        m_AttributeLevelUpActions[(int)Health.Type]  = Health.Ascend;
-        m_AttributeLevelUpActions[(int)Attack.Type]  = Attack.Ascend;
-        m_AttributeLevelUpActions[(int)Defense.Type] = Defense.Ascend;
-        m_AttributeLevelUpActions[(int)Magic.Type]   = Magic.Ascend;
-
-        m_AttributeAscendActions[(int)Health.Type]  = Health.Ascend;
-        m_AttributeAscendActions[(int)Attack.Type]  = Attack.Ascend;
-        m_AttributeAscendActions[(int)Defense.Type] = Defense.Ascend;
-        m_AttributeAscendActions[(int)Magic.Type]   = Magic.Ascend;
-
-        m_AttributeDescendActions[(int)Health.Type]  = Health.Descend;
-        m_AttributeDescendActions[(int)Attack.Type]  = Attack.Descend;
-        m_AttributeDescendActions[(int)Defense.Type] = Defense.Descend;
-        m_AttributeDescendActions[(int)Magic.Type]   = Magic.Descend;
+        AscendLookup(attribute, 1);
     }
 
-    public void Ascend(AttributeType attribute) => m_AttributeLevelUpActions[(int)attribute]();
+    [LookupTable<AttributeType>(AttributeType.Count, [AttributeType.None, AttributeType.Count])]
+    public void Ascend(AttributeType attribute, int amount)
+    {
+        AscendLookup(attribute, amount);
+    }
 
-    public void Ascend(AttributeType attribute, int amount) => m_AttributeAscendActions[(int)attribute](amount);
+    [LookupTable<AttributeType>(AttributeType.Count, [AttributeType.None, AttributeType.Count])]
+    public void Descend(AttributeType attribute, int amount)
+    {
+        DescendLookup(attribute, amount);
+    }
 
-    public void Descend(AttributeType attribute, int amount) => m_AttributeDescendActions[(int)attribute](amount);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Ascend), AttributeType.Health)]
+    private static void AscendHealth(AttributeSet attributeSet, int value) => attributeSet.Health.Ascend(value);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Ascend), AttributeType.Attack)]
+    private static void AscendAttack(AttributeSet attributeSet, int value) => attributeSet.Attack.Ascend(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Ascend), AttributeType.Defense)]
+    private static void AscendDefense(AttributeSet attributeSet, int value) => attributeSet.Defense.Ascend(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Ascend), AttributeType.Magic)]
+    private static void AscendMagic(AttributeSet attributeSet, int value) => attributeSet.Magic.Ascend(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Descend), AttributeType.Health)]
+    private static void DescendHealth(AttributeSet attributeSet, int value) => attributeSet.Health.Descend(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Descend), AttributeType.Attack)]
+    private static void DescendAttack(AttributeSet attributeSet, int value) => attributeSet.Attack.Descend(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Descend), AttributeType.Defense)]
+    private static void DescendDefense(AttributeSet attributeSet, int value) => attributeSet.Defense.Descend(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [LookupTableReference<AttributeType>(nameof(Descend), AttributeType.Magic)]
+    private static void DescendMagic(AttributeSet attributeSet, int value) => attributeSet.Magic.Descend(value);
+    
     // @formatter:off
     public static AttributeSet operator +(AttributeSet left, AttributeSet right) => new(left.Health  + right.Health,
                                                                                         left.Attack  + right.Attack,
