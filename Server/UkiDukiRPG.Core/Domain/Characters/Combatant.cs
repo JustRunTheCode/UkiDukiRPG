@@ -1,9 +1,12 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 using JustRunTheCode.Optimization.Attributes;
 
+using UkiDukiRPG.Core.Domain.Abilities;
 using UkiDukiRPG.Core.Domain.Attributes;
 using UkiDukiRPG.Core.Domain.Stats;
+using UkiDukiRPG.Core.Domain.Time;
 
 namespace UkiDukiRPG.Core.Domain.Characters;
 
@@ -11,6 +14,20 @@ public partial class Combatant(Character character)
 {
     public AttributeSet Attributes { get; } = character.EffectiveAttributes;
     public CombatStats  Stats      { get; } = character.EffectiveStats;
+
+    private readonly AbilityMap m_EquippedAbilitiesMap = character.EquippedAbilitiesMap;
+
+    [SuppressMessage("ReSharper", "RedundantBoolCompare")]
+    public void UseAbility(AbilityType abilityType, Combatant target)
+    {
+        if (m_EquippedAbilitiesMap[(int)abilityType] is false)
+            return;
+
+        // @formatter:off
+        //NOTE: TypeSystem is a placeholder
+        Ability.Lookup[(int)abilityType].Use(this, target, new TimeSystem());
+        // @formatter:on
+    }
 
     //TODO: Keep Track of Active Status Effects
     //TODO: Add Abilities
