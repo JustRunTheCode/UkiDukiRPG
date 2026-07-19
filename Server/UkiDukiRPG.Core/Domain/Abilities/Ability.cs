@@ -1,4 +1,5 @@
 ﻿using UkiDukiRPG.Core.Domain.Characters;
+using UkiDukiRPG.Core.Domain.Time;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
@@ -39,11 +40,11 @@ public enum AbilityType
     Count, //NOTE: hack to get array size value required to hold the types, always keep as last element
 }
 
-public abstract class Ability(string name, AbilityType type)
+public abstract partial class Ability(string name, AbilityType type)
 {
     public string Name => name;
 
     public AbilityType Type => type;
 
-    public abstract void Use(Combatant caster, Combatant target);
+    public abstract void Use(Combatant caster, Combatant target, IScheduler scheduler);
 }

@@ -7,18 +7,16 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: MagicDamageEffect (Target: Defender, Value: Light)
 //      Effect 2: MagicDecreaseEffect (Target: Defender, Duration: 2 Turns)
-public class ManaDrainAbility(IScheduler scheduler) : Ability(nameof(ManaDrainAbility), AbilityType.ManaDrain)
+public class ManaDrainAbility() : Ability(nameof(ManaDrainAbility), AbilityType.ManaDrain)
 {
     private const float c_BaseDamage     = 10.0f;
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;
 
-    private readonly IScheduler m_Scheduler = scheduler;
-
-    public override void Use(Combatant caster, Combatant target)
+    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
     {
-        var effect1 = new MagicDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
-        var effect2 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);
+        var effect1 = new MagicDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
+        var effect2 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, scheduler);
 
         effect1.Apply(caster, target);
         effect2.Apply(caster, target);

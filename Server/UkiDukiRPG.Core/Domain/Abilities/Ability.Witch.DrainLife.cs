@@ -8,15 +8,13 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: MagicDamageEffect (Target: Defender, Value: Light)
 //      Effect 2: RestoreHealthEffect (Target: Caster, Value: Light)
-public class DrainLifeAbility(IScheduler scheduler) : Ability(nameof(DrainLifeAbility), AbilityType.DrainLife)
+public class DrainLifeAbility() : Ability(nameof(DrainLifeAbility), AbilityType.DrainLife)
 {
     private const float c_BaseDamage = 7.5f;
 
-    private readonly IScheduler m_Scheduler = scheduler;
-
-    public override void Use(Combatant caster, Combatant target)
+    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
     {
-        var effect1 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, m_Scheduler);
+        var effect1 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, scheduler);
 
         var oldHealth = target.CurrentHealth;
 
@@ -24,7 +22,7 @@ public class DrainLifeAbility(IScheduler scheduler) : Ability(nameof(DrainLifeAb
 
         var healthTaken = oldHealth - target.CurrentHealth;
 
-        var effect2 = new RestoreHealthEffect(healthTaken, ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
+        var effect2 = new RestoreHealthEffect(healthTaken, ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
 
         effect2.Apply(caster, caster);
     }

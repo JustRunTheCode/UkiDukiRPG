@@ -6,16 +6,14 @@ using UkiDukiRPG.Core.Domain.Utilities;
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: DefenseIncreaseEffect (Target: Caster, Duration: 2 Turns)
-public class SkitterAbility(IScheduler scheduler) : Ability(nameof(SkitterAbility), AbilityType.Skitter)
+public class SkitterAbility() : Ability(nameof(SkitterAbility), AbilityType.Skitter)
 {
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;
 
-    private readonly IScheduler m_Scheduler = scheduler;
-
-    public override void Use(Combatant caster, Combatant target)
+    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
     {
-        var effect = new DefenseIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
+        var effect = new DefenseIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
 
         effect.Apply(caster, caster);
     }

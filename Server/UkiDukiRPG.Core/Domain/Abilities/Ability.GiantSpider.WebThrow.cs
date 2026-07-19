@@ -7,18 +7,16 @@ namespace UkiDukiRPG.Core.Domain.Abilities;
 
 //NOTE: Effect 1: PhysicalDamageEffect (Target: Defender, Value: Light)
 //      Effect 2: DefenseDecreaseEffect (Target: Defender, Duration: 2 Turns)
-public class WebThrowAbility(IScheduler scheduler) : Ability(nameof(WebThrowAbility), AbilityType.WebThrow)
+public class WebThrowAbility() : Ability(nameof(WebThrowAbility), AbilityType.WebThrow)
 {
     private const float c_BaseDamage     = 10.0f;
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;
 
-    private readonly IScheduler m_Scheduler = scheduler;
-
-    public override void Use(Combatant caster, Combatant target)
+    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
     {
-        var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, m_Scheduler);
-        var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, m_Scheduler);
+        var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
+        var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, scheduler);
 
         effect1.Apply(caster, target);
         effect2.Apply(caster, target);
