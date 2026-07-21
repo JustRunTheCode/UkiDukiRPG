@@ -10,9 +10,9 @@ public class ClawSwipeAbility() : Ability(nameof(ClawSwipeAbility), AbilityType.
 {
     private const float c_BaseDamage = 15.0f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, scheduler);
+        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, timeSystem);
 
         effect.Apply(caster, target);
     }

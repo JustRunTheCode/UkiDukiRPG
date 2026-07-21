@@ -12,8 +12,8 @@ public class AttackIncreaseEffect(
     TimeInterval           duration,
     Func<Combatant, float> casterModifierFunction,
     Func<Combatant, float> targetModifierFunction,
-    IScheduler             scheduler
-) : BuffEffect(nameof(AttackIncreaseEffect), StatusEffectType.AttackIncrease, duration, scheduler)
+    ITimeSystem             timeSystem
+) : BuffEffect(nameof(AttackIncreaseEffect), StatusEffectType.AttackIncrease, duration, timeSystem)
 {
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
     private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;

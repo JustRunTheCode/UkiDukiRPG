@@ -6,8 +6,8 @@ using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 namespace UkiDukiRPG.Core.Domain.Effects;
 
 //NOTE: Used by the Knight's Second Wind.
-public class RestoreHealthEffect(float baseHeal, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, IScheduler scheduler)
-: InstantEffect(nameof(RestoreHealthEffect), scheduler)
+public class RestoreHealthEffect(float baseHeal, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, ITimeSystem timeSystem)
+: InstantEffect(nameof(RestoreHealthEffect), timeSystem)
 {
     private readonly float                  m_BaseHeal               = baseHeal;
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;

@@ -10,9 +10,9 @@ public class HeadbuttAbility() : Ability(nameof(HeadbuttAbility), AbilityType.He
 {
     private const float c_BaseDamage = 20.0f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, scheduler);
+        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, timeSystem);
 
         effect.Apply(caster, target);
     }

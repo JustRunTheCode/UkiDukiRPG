@@ -13,10 +13,10 @@ public class WebThrowAbility() : Ability(nameof(WebThrowAbility), AbilityType.We
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
-        var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, scheduler);
+        var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
+        var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, timeSystem);
 
         effect1.Apply(caster, target);
         effect2.Apply(caster, target);

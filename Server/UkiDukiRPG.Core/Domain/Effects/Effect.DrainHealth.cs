@@ -6,8 +6,8 @@ using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 namespace UkiDukiRPG.Core.Domain.Effects;
 
 //NOTE: Used by the Witch's Dark Pact
-public class DrainHealthEffect(float baseDamage, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, IScheduler scheduler)
-: InstantEffect(nameof(DrainHealthEffect), scheduler)
+public class DrainHealthEffect(float baseDamage, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, ITimeSystem timeSystem)
+: InstantEffect(nameof(DrainHealthEffect), timeSystem)
 {
     private readonly float                  m_BaseDamage             = baseDamage;
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;

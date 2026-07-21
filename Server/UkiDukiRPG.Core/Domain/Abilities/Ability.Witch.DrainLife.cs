@@ -12,9 +12,9 @@ public class DrainLifeAbility() : Ability(nameof(DrainLifeAbility), AbilityType.
 {
     private const float c_BaseDamage = 7.5f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect1 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, scheduler);
+        var effect1 = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, timeSystem);
 
         var oldHealth = target.CurrentHealth;
 
@@ -22,7 +22,7 @@ public class DrainLifeAbility() : Ability(nameof(DrainLifeAbility), AbilityType.
 
         var healthTaken = oldHealth - target.CurrentHealth;
 
-        var effect2 = new RestoreHealthEffect(healthTaken, ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
+        var effect2 = new RestoreHealthEffect(healthTaken, ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
 
         effect2.Apply(caster, caster);
     }

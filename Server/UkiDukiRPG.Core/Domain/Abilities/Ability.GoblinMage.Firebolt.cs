@@ -10,9 +10,9 @@ public class FireboltAbility() : Ability(nameof(FireboltAbility), AbilityType.Fi
 {
     private const float c_BaseDamage = 15.0f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, scheduler);
+        var effect = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, timeSystem);
 
         effect.Apply(caster, target);
     }

@@ -46,5 +46,5 @@ public abstract partial class Ability(string name, AbilityType type)
 
     public AbilityType Type => type;
 
-    public abstract void Use(Combatant caster, Combatant target, IScheduler scheduler);
+    public abstract void Use(Combatant caster, Combatant target, ITimeSystem timeSystem);
 }

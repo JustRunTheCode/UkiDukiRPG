@@ -10,9 +10,9 @@ public class SecondWindAbility() : Ability(nameof(SecondWindAbility), AbilityTyp
 {
     private const float c_BaseHeal = 15.0f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect = new RestoreHealthEffect(c_BaseHeal, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, scheduler);
+        var effect = new RestoreHealthEffect(c_BaseHeal, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, timeSystem);
 
         effect.Apply(caster, caster);
     }

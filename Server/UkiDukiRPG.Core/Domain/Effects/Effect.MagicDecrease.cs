@@ -12,8 +12,8 @@ public class MagicDecreaseEffect(
     TimeInterval           duration,
     Func<Combatant, float> casterModifierFunction,
     Func<Combatant, float> targetModifierFunction,
-    IScheduler             scheduler
-) : DebuffEffect(nameof(MagicDecreaseEffect), StatusEffectType.MagicDecrease, duration, scheduler)
+    ITimeSystem             timeSystem
+) : DebuffEffect(nameof(MagicDecreaseEffect), StatusEffectType.MagicDecrease, duration, timeSystem)
 {
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
     private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;

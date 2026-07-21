@@ -13,10 +13,10 @@ public class DarkPactAbility() : Ability(nameof(DarkPactAbility), AbilityType.Da
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.60f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect1 = new DrainHealthEffect(c_BaseDamage, ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
-        var effect2 = new MagicIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
+        var effect1 = new DrainHealthEffect(c_BaseDamage, ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
+        var effect2 = new MagicIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
 
         effect1.Apply(caster, caster);
         effect2.Apply(caster, caster);

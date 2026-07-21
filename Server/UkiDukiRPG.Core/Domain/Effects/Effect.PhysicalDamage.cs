@@ -6,8 +6,8 @@ using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 namespace UkiDukiRPG.Core.Domain.Effects;
 
 //NOTE: Used by Slash, Bite, Pounce, Claw Swipe, Rusty Blade, Dirty Kick, Headbutt, Web Throw.
-public class PhysicalDamageEffect(float baseDamage, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, IScheduler scheduler)
-: InstantEffect(nameof(PhysicalDamageEffect), scheduler)
+public class PhysicalDamageEffect(float baseDamage, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, ITimeSystem timeSystem)
+: InstantEffect(nameof(PhysicalDamageEffect), timeSystem)
 {
     private readonly float                  m_BaseDamage             = baseDamage;
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;

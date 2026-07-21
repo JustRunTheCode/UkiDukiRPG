@@ -12,8 +12,8 @@ public class AttackDecreaseEffect(
     TimeInterval           duration,
     Func<Combatant, float> casterModifierFunction,
     Func<Combatant, float> targetModifierFunction,
-    IScheduler             scheduler
-) : DebuffEffect(nameof(AttackDecreaseEffect), StatusEffectType.AttackDecrease, duration, scheduler)
+    ITimeSystem             timeSystem
+) : DebuffEffect(nameof(AttackDecreaseEffect), StatusEffectType.AttackDecrease, duration, timeSystem)
 {
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
     private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;

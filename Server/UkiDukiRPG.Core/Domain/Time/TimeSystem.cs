@@ -1,6 +1,6 @@
 ﻿namespace UkiDukiRPG.Core.Domain.Time;
 
-public interface IScheduler
+public interface ITimeSystem
 {
     int CurrentTick { get; }
 
@@ -9,7 +9,7 @@ public interface IScheduler
     void Schedule(Action action, int interval, TimeUnit delayUnit);
 }
 
-public class TimeSystem : IScheduler
+public class TimeSystem : ITimeSystem
 {
     private readonly PriorityQueue<Action, int> m_Queue = new();
 

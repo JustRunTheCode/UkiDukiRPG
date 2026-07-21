@@ -6,8 +6,8 @@ using UkiDukiRPG.Core.Domain.Utilities.Extensions;
 namespace UkiDukiRPG.Core.Domain.Effects;
 
 //NOTE: Used by Shadow Bolt, Drain Life, Flame Breath, Firebolt, Mana Drain.
-public class MagicDamageEffect(float baseDamage, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, IScheduler scheduler)
-: InstantEffect(nameof(MagicDamageEffect), scheduler)
+public class MagicDamageEffect(float baseDamage, Func<Combatant, float> casterModifierFunction, Func<Combatant, float> targetModifierFunction, ITimeSystem timeSystem)
+: InstantEffect(nameof(MagicDamageEffect), timeSystem)
 {
     private readonly float                  m_BaseDamage             = baseDamage;
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;

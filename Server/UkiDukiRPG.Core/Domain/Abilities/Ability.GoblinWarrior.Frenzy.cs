@@ -11,9 +11,9 @@ public class FrenzyAbility() : Ability(nameof(FrenzyAbility), AbilityType.Frenzy
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;
 
-    public override void Use(Combatant caster, Combatant target, IScheduler scheduler)
+    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
     {
-        var effect = new AttackIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, scheduler);
+        var effect = new AttackIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
 
         effect.Apply(caster, caster);
     }
