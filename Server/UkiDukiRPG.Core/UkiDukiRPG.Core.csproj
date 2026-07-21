@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="JustRunTheCode.Optimization" Version="0.0.2-alpha" />
+      <PackageReference Include="MessagePack.Annotations" Version="3.1.8" />
     </ItemGroup>
 
 </Project>
