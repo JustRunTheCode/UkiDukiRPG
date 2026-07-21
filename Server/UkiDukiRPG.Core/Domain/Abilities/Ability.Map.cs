@@ -22,7 +22,7 @@ public partial class Ability
         return map;
     }
 
-    public static Ability[] Lookup = new Ability[(int)AbilityType.Count];
+    public static readonly Ability[] Lookup = new Ability[(int)AbilityType.Count];
 
     static Ability()
     {

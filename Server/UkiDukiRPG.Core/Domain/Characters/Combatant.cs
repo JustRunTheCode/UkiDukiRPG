@@ -5,6 +5,7 @@ using JustRunTheCode.Optimization.Attributes;
 
 using UkiDukiRPG.Core.Domain.Abilities;
 using UkiDukiRPG.Core.Domain.Attributes;
+using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Stats;
 using UkiDukiRPG.Core.Domain.Time;
 
@@ -15,12 +16,13 @@ public partial class Combatant(Character character)
     public AttributeSet Attributes { get; } = character.EffectiveAttributes;
     public CombatStats  Stats      { get; } = character.EffectiveStats;
 
-    private readonly AbilityMap m_EquippedAbilitiesMap = character.EquippedAbilitiesMap;
+    private readonly AbilityMap      m_EquippedAbilityMap    = character.EquippedAbilitiesMap;
+    private          StatusEffectMap m_ActiveStatusEffectMap = StatusEffect.EmptyMap;
 
     [SuppressMessage("ReSharper", "RedundantBoolCompare")]
     public void UseAbility(AbilityType abilityType, Combatant target)
     {
-        if (m_EquippedAbilitiesMap[(int)abilityType] is false)
+        if (m_EquippedAbilityMap[(int)abilityType] is false)
             return;
 
         // @formatter:off
@@ -29,8 +31,13 @@ public partial class Combatant(Character character)
         // @formatter:on
     }
 
-    //TODO: Keep Track of Active Status Effects
-    //TODO: Add Abilities
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void AddStatusEffect(StatusEffectType statusEffectType) => m_ActiveStatusEffectMap[(int)statusEffectType] += 1;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void RemoveStatusEffect(StatusEffectType statusEffectType) => m_ActiveStatusEffectMap[(int)statusEffectType] -= 1;
+
+    public StatusEffectMap ActiveStatusEffectMap => m_ActiveStatusEffectMap;
 
     [LookupTable<AttributeType>(AttributeType.Count, [AttributeType.None, AttributeType.Count])]
     public void AscendAttribute(AttributeType attributeType, int value)

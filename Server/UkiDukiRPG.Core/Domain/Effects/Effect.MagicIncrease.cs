@@ -13,7 +13,7 @@ public class MagicIncreaseEffect(
     Func<Combatant, float> casterModifierFunction,
     Func<Combatant, float> targetModifierFunction,
     IScheduler             scheduler
-) : BuffEffect(nameof(MagicIncreaseEffect), duration, scheduler)
+) : BuffEffect(nameof(MagicIncreaseEffect), StatusEffectType.MagicIncrease, duration, scheduler)
 {
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
     private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;

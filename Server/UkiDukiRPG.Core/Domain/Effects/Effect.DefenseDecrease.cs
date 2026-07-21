@@ -13,7 +13,7 @@ public class DefenseDecreaseEffect(
     Func<Combatant, float> casterModifierFunction,
     Func<Combatant, float> targetModifierFunction,
     IScheduler             scheduler
-) : DebuffEffect(nameof(DefenseDecreaseEffect), duration, scheduler)
+) : DebuffEffect(nameof(DefenseDecreaseEffect), StatusEffectType.DefenseDecrease, duration, scheduler)
 {
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
     private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;

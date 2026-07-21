@@ -7,19 +7,28 @@ using UkiDukiRPG.Core.Domain.Stats;
 
 namespace UkiDukiRPG.Core.Domain.Characters;
 
-public abstract class Character(AttributeSet baseAttributes, StatBlock baseStats, ReadOnlySpan<AbilityType> equippedAbilities, ReadOnlySpan<AbilityType> learnedAbilities)
+public abstract class Character(
+    AttributeSet              baseAttributes,
+    AttributeSet              upgradedAttributes,
+    StatBlock                 baseStats,
+    ReadOnlySpan<AbilityType> equippedAbilities,
+    ReadOnlySpan<AbilityType> learnedAbilities
+)
 {
     public readonly AttributeSet BaseAttributes      = baseAttributes;
-    public readonly AttributeSet UpgradedAttributes  = new();
-    public readonly AttributeSet EffectiveAttributes = baseAttributes;
+    public readonly AttributeSet UpgradedAttributes  = upgradedAttributes;
+    public readonly AttributeSet EffectiveAttributes = baseAttributes + upgradedAttributes;
 
     public readonly StatBlock BaseStats      = baseStats;
-    public readonly StatBlock EffectiveStats = baseStats + baseAttributes;
+    public readonly StatBlock EffectiveStats = baseStats + (baseAttributes + upgradedAttributes);
 
     public readonly Experience Experience = new(268, new LevelRequirements());
 
     private AbilityMap m_EquippedAbilitiesMap = Ability.CreateMap(equippedAbilities);
     private AbilityMap m_LearnedAbilitiesMap  = Ability.CreateMap(learnedAbilities);
+
+    public Character(AttributeSet baseAttributes, StatBlock baseStats, ReadOnlySpan<AbilityType> defaultAbilities) : this(baseAttributes, new AttributeSet(), baseStats, defaultAbilities,
+                                                                                                                          defaultAbilities) { }
 
     public AbilityMap EquippedAbilitiesMap => m_EquippedAbilitiesMap;
 

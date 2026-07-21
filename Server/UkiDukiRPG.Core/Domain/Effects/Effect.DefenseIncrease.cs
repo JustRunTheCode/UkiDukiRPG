@@ -13,7 +13,7 @@ public class DefenseIncreaseEffect(
     Func<Combatant, float> casterModifierFunction,
     Func<Combatant, float> targetModifierFunction,
     IScheduler             scheduler
-) : BuffEffect(nameof(DefenseIncreaseEffect), duration, scheduler)
+) : BuffEffect(nameof(DefenseIncreaseEffect), StatusEffectType.DefenseIncrease, duration, scheduler)
 {
     private readonly Func<Combatant, float> m_CasterModifierFunction = casterModifierFunction;
     private readonly Func<Combatant, float> m_TargetModifierFunction = targetModifierFunction;
