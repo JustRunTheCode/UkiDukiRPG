@@ -1,20 +1,18 @@
-﻿using UkiDukiRPG.Core.Domain.Characters;
+﻿using UkiDukiRPG.Core.Domain.Battle;
 using UkiDukiRPG.Core.Domain.Time;
+
+using Combatant = UkiDukiRPG.Core.Domain.Battle.Combatant;
 
 namespace UkiDukiRPG.Core.Domain.Effects;
 
-public abstract class Effect(string name, ITimeSystem timeSystem)
+public abstract class Effect(string name)
 {
     public string Name { get; } = name;
 
-    public int TimeActivated { get; } = timeSystem.CurrentTick;
-
-    protected readonly ITimeSystem timeSystem = timeSystem;
-
-    public abstract void Apply(Combatant caster, Combatant target);
+    public abstract void Apply(Combatant caster, Combatant target, IBattleEngine battle);
 }
 
-public abstract class InstantEffect(string name, ITimeSystem timeSystem) : Effect(name, timeSystem) { }
+public abstract class InstantEffect(string name) : Effect(name) { }
 
 public enum StatusEffectCategory
 {
@@ -25,36 +23,34 @@ public enum StatusEffectCategory
 public enum StatusEffectType
 {
     None = 0,
-    
+
     AttackDecrease,
     AttackIncrease,
     DefenseDecrease,
     DefenseIncrease,
     MagicDecrease,
     MagicIncrease,
-    
+
     Count, //NOTE: hack to get array size value required to hold the types, always keep as last element
 }
 
-public abstract partial class StatusEffect(string name, StatusEffectType type, TimeInterval duration, ITimeSystem timeSystem) : Effect(name, timeSystem)
+public abstract partial class StatusEffect(string name, StatusEffectType type, TimeInterval duration) : Effect(name)
 {
     public TimeInterval Duration { get; } = duration;
 
     public StatusEffectType Type { get; } = type;
-    
-    protected void ScheduleClear(Combatant combatant) => timeSystem.Schedule(() => Clear(combatant), Duration);
 
     public abstract void Clear(Combatant combatant);
 
     public abstract StatusEffectCategory Category();
 }
 
-public abstract class BuffEffect(string name, StatusEffectType type, TimeInterval duration, ITimeSystem timeSystem) : StatusEffect(name, type, duration, timeSystem)
+public abstract class BuffEffect(string name, StatusEffectType type, TimeInterval duration) : StatusEffect(name, type, duration)
 {
     public override StatusEffectCategory Category() => StatusEffectCategory.Buff;
 }
 
-public abstract class DebuffEffect(string name, StatusEffectType type, TimeInterval duration, ITimeSystem timeSystem) : StatusEffect(name, type, duration, timeSystem)
+public abstract class DebuffEffect(string name, StatusEffectType type, TimeInterval duration) : StatusEffect(name, type, duration)
 {
     public override StatusEffectCategory Category() => StatusEffectCategory.Debuff;
 }

@@ -1,6 +1,6 @@
-﻿using UkiDukiRPG.Core.Domain.Effects;
-using UkiDukiRPG.Core.Domain.Characters;
-using UkiDukiRPG.Core.Domain.Time;
+﻿using UkiDukiRPG.Core.Domain.Battle;
+using UkiDukiRPG.Core.Domain.Battle.Events;
+using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
@@ -10,10 +10,12 @@ public class SlashAbility() : Ability(nameof(SlashAbility), AbilityType.Slash)
 {
     private const float c_BaseDamage = 15.0f;
 
-    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
+    public override void Use(Combatant caster, Combatant target, IBattleEngine battle)
     {
-        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, timeSystem);
+        battle.AddEvent(BattleEvent.AbilityUsed.Create(caster.Id, target.Id, Type));
 
-        effect.Apply(caster, target);
+        var effect = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction);
+
+        effect.Apply(caster, target, battle);
     }
 }

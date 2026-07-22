@@ -1,4 +1,6 @@
-﻿namespace UkiDukiRPG.Core.Domain.Time;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace UkiDukiRPG.Core.Domain.Time;
 
 public enum TimeUnit
 {
@@ -7,14 +9,21 @@ public enum TimeUnit
     Round,
 }
 
+[SuppressMessage("ReSharper", "ConvertToAutoPropertyWhenPossible")]
 public readonly struct TimeInterval(int ticks = 0)
 {
     public const int TickTimeMultiplier  = 1;
     public const int TurnTimeMultiplier  = TickTimeMultiplier;
     public const int RoundTimeMultiplier = TurnTimeMultiplier * 2;
 
-    public int Ticks { get; } = ticks;
+    private readonly int m_Ticks = ticks;
 
+    public int Tick => m_Ticks;
+    
+    public int Turn => m_Ticks;
+
+    public int Round => (m_Ticks + 1) / 2;
+    
     public static TimeInterval FromTurns(int turns) => new(TurnTimeMultiplier * turns);
 
     public static TimeInterval FromRounds(int rounds) => new(RoundTimeMultiplier * rounds);

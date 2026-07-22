@@ -9,7 +9,7 @@ namespace UkiDukiRPG.Core.Domain.Battle.Events;
 // @formatter:off
 [MessagePackObject]
 public record TurnEndedEvent(
-    [property: Key(0)] Guid         CombatantId,
+    [property: Key(0)] int          CombatantId,
     [property: Key(1)] TimeInterval Duration
 ) : IBattleEvent
 // @formatter:on
@@ -22,6 +22,6 @@ public partial class BattleEvent
     public static class TurnEnded
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TurnEndedEvent Create(Guid combatantId, TimeInterval duration) => new(combatantId, duration);
+        public static TurnEndedEvent Create(int combatantId, TimeInterval duration) => new(combatantId, duration);
     }
 }

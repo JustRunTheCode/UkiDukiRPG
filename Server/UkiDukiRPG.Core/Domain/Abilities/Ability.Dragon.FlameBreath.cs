@@ -1,6 +1,6 @@
-﻿using UkiDukiRPG.Core.Domain.Effects;
-using UkiDukiRPG.Core.Domain.Characters;
-using UkiDukiRPG.Core.Domain.Time;
+﻿using UkiDukiRPG.Core.Domain.Battle;
+using UkiDukiRPG.Core.Domain.Battle.Events;
+using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Utilities;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
@@ -10,10 +10,12 @@ public class FlameBreathAbility() : Ability(nameof(FlameBreathAbility), AbilityT
 {
     private const float c_BaseDamage = 20.0f;
 
-    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
+    public override void Use(Combatant caster, Combatant target, IBattleEngine battle)
     {
-        var effect = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect, timeSystem);
+        battle.AddEvent(BattleEvent.AbilityUsed.Create(caster.Id, target.Id, Type));
 
-        effect.Apply(caster, target);
+        var effect = new MagicDamageEffect(c_BaseDamage, ModifierFunction.MagicAmplification, ModifierFunction.NoEffect);
+
+        effect.Apply(caster, target, battle);
     }
 }

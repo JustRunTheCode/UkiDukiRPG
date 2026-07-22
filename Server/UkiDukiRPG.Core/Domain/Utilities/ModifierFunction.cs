@@ -1,4 +1,4 @@
-﻿using UkiDukiRPG.Core.Domain.Characters;
+﻿using UkiDukiRPG.Core.Domain.Battle;
 
 namespace UkiDukiRPG.Core.Domain.Utilities;
 

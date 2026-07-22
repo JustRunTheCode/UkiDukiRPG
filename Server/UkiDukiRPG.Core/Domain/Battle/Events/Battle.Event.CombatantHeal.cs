@@ -7,7 +7,7 @@ namespace UkiDukiRPG.Core.Domain.Battle.Events;
 // @formatter:off
 [MessagePackObject]
 public record CombatantHealEvent(
-    [property: Key(0)] Guid  CombatantId,
+    [property: Key(0)] int   CombatantId,
     [property: Key(1)] float HealthRestored
 ) : IBattleEvent
 // @formatter:on
@@ -20,6 +20,6 @@ public partial class BattleEvent
     public static class CombatantHeal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CombatantHealEvent Create(Guid combatantId, float healthRestored) => new(combatantId, healthRestored);
+        public static CombatantHealEvent Create(int combatantId, float healthRestored) => new(combatantId, healthRestored);
     }
 }

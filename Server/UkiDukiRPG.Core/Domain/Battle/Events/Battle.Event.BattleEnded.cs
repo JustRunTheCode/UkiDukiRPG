@@ -7,8 +7,7 @@ namespace UkiDukiRPG.Core.Domain.Battle.Events;
 // @formatter:off
 [MessagePackObject]
 public record BattleEndedEvent(
-    [property: Key(0)] Guid ChampionId,
-    [property: Key(1)] Guid DefeatedId
+    [property: Key(0)] CombatantType Winner
 ) : IBattleEvent
 // @formatter:on
 {
@@ -20,6 +19,6 @@ public partial class BattleEvent
     public static class BattleEnded
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BattleEndedEvent Create(Guid championId, Guid defeatedId) => new(championId, defeatedId);
+        public static BattleEndedEvent Create(CombatantType winner) => new(winner);
     }
 }

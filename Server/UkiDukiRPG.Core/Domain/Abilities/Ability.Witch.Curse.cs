@@ -1,5 +1,6 @@
-﻿using UkiDukiRPG.Core.Domain.Effects;
-using UkiDukiRPG.Core.Domain.Characters;
+﻿using UkiDukiRPG.Core.Domain.Battle;
+using UkiDukiRPG.Core.Domain.Battle.Events;
+using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Time;
 using UkiDukiRPG.Core.Domain.Utilities;
 
@@ -11,10 +12,12 @@ public class CurseAbility() : Ability(nameof(CurseAbility), AbilityType.Curse)
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;
 
-    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
+    public override void Use(Combatant caster, Combatant target, IBattleEngine battle)
     {
-        var effect = new AttackDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
+        battle.AddEvent(BattleEvent.AbilityUsed.Create(caster.Id, target.Id, Type));
 
-        effect.Apply(caster, target);
+        var effect = new AttackDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect);
+
+        effect.Apply(caster, target, battle);
     }
 }

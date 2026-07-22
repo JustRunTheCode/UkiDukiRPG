@@ -5,29 +5,31 @@ using JustRunTheCode.Optimization.Attributes;
 
 using UkiDukiRPG.Core.Domain.Abilities;
 using UkiDukiRPG.Core.Domain.Attributes;
+using UkiDukiRPG.Core.Domain.Characters;
 using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Stats;
-using UkiDukiRPG.Core.Domain.Time;
 
-namespace UkiDukiRPG.Core.Domain.Characters;
+namespace UkiDukiRPG.Core.Domain.Battle;
 
-public partial class Combatant(Character character)
+public partial class Combatant(int id, Character character)
 {
+    public int          Id         { get; } = id;
     public AttributeSet Attributes { get; } = character.EffectiveAttributes;
     public CombatStats  Stats      { get; } = character.EffectiveStats;
 
     private readonly AbilityMap      m_EquippedAbilityMap    = character.EquippedAbilitiesMap;
     private          StatusEffectMap m_ActiveStatusEffectMap = StatusEffect.EmptyMap;
 
+    public static Combatant Create(int id, Character character) => new(id, character);
+    
     [SuppressMessage("ReSharper", "RedundantBoolCompare")]
-    public void UseAbility(AbilityType abilityType, Combatant target)
+    public void UseAbility(AbilityType abilityType, Combatant target, IBattleEngine battle)
     {
         if (m_EquippedAbilityMap[(int)abilityType] is false)
             return;
 
         // @formatter:off
-        //NOTE: TypeSystem is a placeholder
-        Ability.Lookup[(int)abilityType].Use(this, target, new TimeSystem());
+        Ability.Lookup[(int)abilityType].Use(this, target, battle);
         // @formatter:on
     }
 
@@ -36,8 +38,10 @@ public partial class Combatant(Character character)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void RemoveStatusEffect(StatusEffectType statusEffectType) => m_ActiveStatusEffectMap[(int)statusEffectType] -= 1;
-
+    
     public StatusEffectMap ActiveStatusEffectMap => m_ActiveStatusEffectMap;
+
+    public bool IsDead => Stats.Health.Value == 0;
 
     [LookupTable<AttributeType>(AttributeType.Count, [AttributeType.None, AttributeType.Count])]
     public void AscendAttribute(AttributeType attributeType, int value)

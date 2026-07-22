@@ -16,11 +16,14 @@ public enum BattleEventType
     TurnEnded,
     StatusEffectApplied,
     StatusEffectCleared,
+    Surrender,
 
     Count
 }
 
 [Union((int)BattleEventType.AbilityUsed,         typeof(AbilityUsedEvent))]
+[Union((int)BattleEventType.BattleEnded,         typeof(BattleEndedEvent))]
+[Union((int)BattleEventType.BattleStarted,       typeof(BattleStartedEvent))]
 [Union((int)BattleEventType.CombatantDefeated,   typeof(CombatantDefeatedEvent))]
 [Union((int)BattleEventType.CombatantHeal,       typeof(CombatantHealEvent))]
 [Union((int)BattleEventType.CombatantHurt,       typeof(CombatantHurtEvent))]
@@ -28,6 +31,7 @@ public enum BattleEventType
 [Union((int)BattleEventType.TurnEnded,           typeof(TurnEndedEvent))]
 [Union((int)BattleEventType.StatusEffectApplied, typeof(StatusEffectAppliedEvent))]
 [Union((int)BattleEventType.StatusEffectCleared, typeof(StatusEffectClearedEvent))]
+[Union((int)BattleEventType.Surrender,           typeof(SurrenderEvent))]
 public interface IBattleEvent
 {
     public BattleEventType Type { get; }

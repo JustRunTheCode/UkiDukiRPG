@@ -1,5 +1,4 @@
-﻿using UkiDukiRPG.Core.Domain.Characters;
-using UkiDukiRPG.Core.Domain.Time;
+﻿using UkiDukiRPG.Core.Domain.Battle;
 
 namespace UkiDukiRPG.Core.Domain.Abilities;
 
@@ -46,5 +45,5 @@ public abstract partial class Ability(string name, AbilityType type)
 
     public AbilityType Type => type;
 
-    public abstract void Use(Combatant caster, Combatant target, ITimeSystem timeSystem);
+    public abstract void Use(Combatant caster, Combatant target, IBattleEngine battle);
 }

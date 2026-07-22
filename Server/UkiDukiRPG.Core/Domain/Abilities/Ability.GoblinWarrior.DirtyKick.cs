@@ -1,5 +1,6 @@
-﻿using UkiDukiRPG.Core.Domain.Effects;
-using UkiDukiRPG.Core.Domain.Characters;
+﻿using UkiDukiRPG.Core.Domain.Battle;
+using UkiDukiRPG.Core.Domain.Battle.Events;
+using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Time;
 using UkiDukiRPG.Core.Domain.Utilities;
 
@@ -13,12 +14,14 @@ public class DirtyKickAbility() : Ability(nameof(DirtyKickAbility), AbilityType.
     private const float c_BaseDecrease   = 0.0f;
     private const float c_DecreaseFactor = 0.25f;
 
-    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
+    public override void Use(Combatant caster, Combatant target, IBattleEngine battle)
     {
-        var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
-        var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction, timeSystem);
+        battle.AddEvent(BattleEvent.AbilityUsed.Create(caster.Id, target.Id, Type));
 
-        effect1.Apply(caster, target);
-        effect2.Apply(caster, target);
+        var effect1 = new DefenseDecreaseEffect(c_BaseDecrease, c_DecreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect);
+        var effect2 = new PhysicalDamageEffect(c_BaseDamage, ModifierFunction.AttackAmplification, ModifierFunction.DefenseReduction);
+
+        effect1.Apply(caster, target, battle);
+        effect2.Apply(caster, target, battle);
     }
 }

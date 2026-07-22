@@ -1,23 +1,18 @@
 ﻿using System.Runtime.CompilerServices;
 
 using UkiDukiRPG.Core.Domain.Abilities;
-using UkiDukiRPG.Core.Domain.Characters;
 
 namespace UkiDukiRPG.Core.Domain.Battle.Actions;
 
+// @formatter:off
 public record UseAbilityAction(
+    int         CasterId,
+    int         TargetId,
     AbilityType AbilityType
 ) : IBattleAction
+// @formatter:on
 {
     public BattleActionType Type => BattleActionType.UseAbility;
-    
-    public void Process(Combatant caster, Combatant target)
-    {
-        // TODO: Invoke Battle Engine
-        // Ability.Lookup[(int)AbilityType].Use(caster, target, battleEngine);
-        
-        throw new NotImplementedException();
-    }
 }
 
 public partial class BattleAction
@@ -25,6 +20,6 @@ public partial class BattleAction
     public static class UseAbility
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UseAbilityAction Create(AbilityType abilityType) => new(abilityType);
+        public static IBattleAction Create(int casterId, int targetId, AbilityType abilityType) => new UseAbilityAction(casterId, targetId, abilityType);
     }
 }

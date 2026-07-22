@@ -10,7 +10,7 @@ namespace UkiDukiRPG.Core.Domain.Battle.Events;
 // @formatter:off
 [MessagePackObject]
 public record StatusEffectAppliedEvent(
-    [property: Key(0)] Guid             CombatantId,
+    [property: Key(0)] int              CombatantId,
     [property: Key(1)] StatusEffectType StatusEffect,
     [property: Key(2)] TimeInterval     EffectDuration
 ) : IBattleEvent
@@ -24,6 +24,6 @@ public partial class BattleEvent
     public static class StatusEffectApplied
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static StatusEffectAppliedEvent Create(Guid combatantId, StatusEffectType statusEffect, TimeInterval effectDuration) => new(combatantId, statusEffect, effectDuration);
+        public static StatusEffectAppliedEvent Create(int combatantId, StatusEffectType statusEffect, TimeInterval effectDuration) => new(combatantId, statusEffect, effectDuration);
     }
 }

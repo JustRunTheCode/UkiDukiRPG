@@ -1,5 +1,6 @@
-﻿using UkiDukiRPG.Core.Domain.Effects;
-using UkiDukiRPG.Core.Domain.Characters;
+﻿using UkiDukiRPG.Core.Domain.Battle;
+using UkiDukiRPG.Core.Domain.Battle.Events;
+using UkiDukiRPG.Core.Domain.Effects;
 using UkiDukiRPG.Core.Domain.Time;
 using UkiDukiRPG.Core.Domain.Utilities;
 
@@ -11,10 +12,12 @@ public class BattleCryAbility() : Ability(nameof(BattleCryAbility), AbilityType.
     private const float c_BaseIncrease   = 0.0f;
     private const float c_IncreaseFactor = 0.50f;
 
-    public override void Use(Combatant caster, Combatant target, ITimeSystem timeSystem)
+    public override void Use(Combatant caster, Combatant target, IBattleEngine battle)
     {
-        var effect = new AttackIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect, timeSystem);
+        battle.AddEvent(BattleEvent.AbilityUsed.Create(caster.Id, target.Id, Type));
 
-        effect.Apply(caster, caster);
+        var effect = new AttackIncreaseEffect(c_BaseIncrease, c_IncreaseFactor, TimeInterval.FromRounds(2), ModifierFunction.NoEffect, ModifierFunction.NoEffect);
+
+        effect.Apply(caster, target, battle);
     }
 }
