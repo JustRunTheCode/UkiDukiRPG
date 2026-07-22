@@ -35,10 +35,17 @@ public class DefenseIncreaseEffect(
 
         target.AscendAttribute(AttributeType.Defense, m_Amount);
 
+        target.AddStatusEffect(Type);
+
         battle.AddEvent(BattleEvent.StatusEffectApplied.Create(target.Id, Type, Duration));
-        
+
         battle.TimeSystem.Schedule(() => Clear(target), Duration);
     }
 
-    public override void Clear(Combatant combatant) => combatant.DescendAttribute(AttributeType.Defense, m_Amount);
+    public override void Clear(Combatant combatant)
+    {
+        combatant.RemoveStatusEffect(Type);
+
+        combatant.DescendAttribute(AttributeType.Defense, m_Amount);
+    }
 }

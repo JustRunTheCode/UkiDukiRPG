@@ -28,7 +28,7 @@ public class RestoreHealthEffect(
         var restoreHealth = float.Min(target.MaxHealth - target.CurrentHealth, m_BaseHeal * casterModifier * targetModifier);
 
         target.IncreaseStat(CombatStatType.Health, restoreHealth);
-        
+
         battle.AddEvent(BattleEvent.CombatantHeal.Create(target.Id, restoreHealth));
     }
 }

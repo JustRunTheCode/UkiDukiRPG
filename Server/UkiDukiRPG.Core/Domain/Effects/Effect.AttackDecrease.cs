@@ -35,10 +35,17 @@ public class AttackDecreaseEffect(
 
         target.DescendAttribute(AttributeType.Attack, m_Amount);
 
+        target.AddStatusEffect(Type);
+
         battle.AddEvent(BattleEvent.StatusEffectApplied.Create(target.Id, Type, Duration));
-        
+
         battle.TimeSystem.Schedule(() => Clear(target), Duration);
     }
 
-    public override void Clear(Combatant combatant) => combatant.AscendAttribute(AttributeType.Attack, m_Amount);
+    public override void Clear(Combatant combatant)
+    {
+        combatant.RemoveStatusEffect(Type);
+
+        combatant.AscendAttribute(AttributeType.Attack, m_Amount);
+    }
 }

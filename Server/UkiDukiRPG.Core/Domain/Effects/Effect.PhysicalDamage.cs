@@ -28,7 +28,7 @@ public class PhysicalDamageEffect(
         var healthDecrease = float.Min(target.CurrentHealth, m_BaseDamage * casterModifier * targetModifier);
 
         target.DecreaseStat(CombatStatType.Health, healthDecrease);
-        
+
         battle.AddEvent(BattleEvent.CombatantHurt.Create(target.Id, healthDecrease));
     }
 }
